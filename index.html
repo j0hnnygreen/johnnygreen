@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <link rel="icon" type="image/jpg" href="Images/Rouge_Death_dp.jpg">
+  <title>Johnnygreen</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="css/toggleButton.css" rel='stylesheet'>
+  <script src="scripts/theme.js"></script>
+  <script src="scripts/textRotate.js"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 dark:text-green-lime p-8">
+  <div class="container mx-auto py-7">
+      <div class="flex flex-wrap justify-center sm:justify-between">
+        <p class="text-3xl">Welcome, this is Johnnygreen's site :)</p>
+        <div class="flex">
+          <div class="px-1 pt-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </div>
+          <div>
+            <button class="light-mode-button" onclick="toggle_dark_mode()">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+          <div class="px-1 pt-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+        </div>
+      </div><br>
+      <p class="text-2xl">I am a 
+        <span
+           class="txt-rotate"
+           data-period="2000"
+           data-rotate='[ "Cybersecurity Enthusiast.", "Programmer.", "FOSS Enthusiast.", "Web Developer." ]'>
+        </span>
+      </p>
+  </div>
+  <div class="container mx-auto text-2xl">
+    <div class="flex">
+      <div class="font-bold text-red-600">root@jgreen</div>
+      <div class="text-blue-400">:~# </div>
+      <div class="pl-2" id="typewriter">ls -la</div>
+    </div>
+    <p>
+<pre class="hide overflow-x-auto text-xl" id="output">
+-rw-r--r-- 1 root root <a href="whoami.html"> <b class="text-blue-500">.johnnygreen</b></a><br>
+-rw-r--r-- 1 root root <a href="resources.html" target="_blank"> <b class="text-blue-500">tools_and_resources</b></a><br>
+-rw-r--r-- 1 root root <a href="writeups.html" target="_blank"> <b class="text-blue-500">writeups</b></a>
+</pre>
+      <div class="flex hide" id="prompt">
+        <div class="font-bold text-red-600">root@jgreen</div>
+        <div class="text-blue-400">:~# </div>
+        <div class="pl-2"><span class="blink">|</span></div>
+      </div>
+    </p>
+    <script>
+      setTimeout(function(){
+        document.getElementById('output').classList.remove('hide');
+        document.getElementById('prompt').classList.remove('hide');
+      }, 1500);
+    </script>
+
+  </div>
+
+  <script>
+    var i = 0;
+    var txt = document.getElementById("typewriter").innerHTML;
+    var speed = 90;
+    document.getElementById("typewriter").innerHTML = "";
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function typeWriter() {
+      for(i; i < txt.length; i++) {
+        document.getElementById("typewriter").innerHTML += txt.charAt(i);
+        await sleep(speed);
+      }
+    }
+
+    typeWriter()
+  </script>
+
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+    }
+    window.addEventListener("storage", function () {
+        if (localStorage.theme == "dark") {
+            document.documentElement.classList.remove('light');
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+    }, false);
+  </script>
+</body>
+</html>

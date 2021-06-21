@@ -1,0 +1,89 @@
+body{
+    background: #000;
+    padding-top: 10px;
+    color: lime;
+    font-family: "Courier";
+}
+
+#nav-links a {
+    color: rgb(235, 14, 14);
+}
+
+#nav-links span {
+    color: lime;
+    text-decoration: underline;
+}
+
+p,.col-sm-3,.col-sm-9 {
+    font-size: 20px;
+}
+
+.col-sm-3 {
+    color: #FF6600;
+}
+
+a {
+    color: lime;
+    text-decoration: underline;
+}
+a:hover {
+    color: lime;
+}
+
+#h-cursor{
+    animation: blink 1s infinite;
+}
+
+.main-head {
+    color: lime;
+    font-family: "Courier";
+    margin: 10px 0 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 26em;
+    animation: type 4s steps(60, end);
+}
+
+.res-pre {
+    padding: 10px;
+    border-radius: 2px;
+    overflow: auto;
+    font-family: 'Courier New', Courier, monospace;
+    color: yellow;
+    max-width: 800px;
+    background-color: rgb(17, 17, 17);
+}
+
+@keyframes type{ 
+    from { width: 0; } 
+}
+
+@keyframes blink{
+    to{opacity: .0;}
+}
+
+.rshell {
+    color: lime;
+    padding: 20px;
+    margin-left: 10%;
+}
+
+strong {
+    color: #FF6600;
+}
+
+kbd{
+    color: lime;
+}
+
+.card, .card-body {
+    padding: 4px;
+    color: lime;
+    background-color: #202428;
+    border-color: #202428;
+}
+
+pre code, code {
+    padding-left: 25px;
+    color: limegreen;
+}

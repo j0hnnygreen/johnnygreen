@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="icon" type="image/jpg" href="../Images/Rouge_Death_dp.jpg">
+        <title>Startup</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="../oldCSS/styles_resources.css">
+        <style>
+            code {
+                color:  #238db1;
+                padding-left: 0px;
+            }
+            img {
+                width: 750px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <center>
+                <p>
+                    <h1 class="main-head">Startup<span id="h-cursor">|</span></h1>
+                </p>
+                <p id="nav-links">
+                    <a href="../index.html">home</a> . <a href="../writeups.html">writeups</a> . <a href="startup.html"><span>startup</span></a> | <a href="https://tryhackme.com/room/startup" target="_blank">TryHackMe</a>
+                </p>
+            </center>
+            <br>
+            <h2><strong>Enumeration:</strong></h2>
+            <p>
+                <h3><strong>Nmap</strong></h3><br>
+                <center><img src="../Images/wu/startup/nmap.png" class="img-fluid" alt="Nmap scan"></center><br>
+                <p>
+                    Nmap found 3 open ports:
+                    <ul class="list-unstyled">
+                        <li>21/tcp - FTP</li>
+                        <li>22/tcp - SSH</li>
+                        <li>80/tcp - HTTP</li>
+                    </ul>
+                </p>
+            </p>
+            <br>
+            <p>
+                <h3><strong>Gobuster</strong></h3><br>
+                <center><img src="../Images/wu/startup/gobuster.png" class="img-fluid" alt="Gobuster results"></center><br>
+                <p>
+                    Bruteforcing directories with gobuster, finds a directory <code>files</code>.
+                </p>
+                <p>This is a directory which contains some files and another sub-directory.</p><br>
+                <center><img src="../Images/wu/startup/http1.png" class="img-fluid" alt="files directory"></center><br>
+            </p>
+            <br>
+            <p>
+                <h3><strong>FTP</strong></h3><br>
+                <center><img src="../Images/wu/startup/ftp1.png" class="img-fluid" alt="ftp anonymous login"></center><br>
+                <p>
+                    Anonymous login is allowed in FTP. After logging in as anonymous and listing the files, there is a directory which is writeable by everyone called <code>ftp</code>.
+                    Change the directory to ftp and upload a <em>php reverse shell</em>.
+                </p>
+                <center><img src="../Images/wu/startup/ftp2.png" class="img-fluid" alt="php-reverse-shell upload"></center><br>
+            </p>
+            <br>
+            <h2><strong>Exploitation:</strong></h2>
+            <p>
+                <h3><strong>Gaining shell</strong></h3><br>
+                <p>
+                    Start a netcat listener on the attacker machine and execute the reverse shell that was uploaded through FTP.
+                </p>
+                <center><img src="../Images/wu/startup/http2.png" class="img-fluid" alt="php-reverse-shell execution"></center><br>
+                <p>
+                    After executing, we'll get a reverse shell of the user www-data
+                </p>
+                <center><img src="../Images/wu/startup/nc-revshell.png" class="img-fluid" alt="netcat listener"></center><br>
+                <p>
+                    Let's go through the file system and look for any interesting files or directories.
+                </p>
+                <center><img src="../Images/wu/startup/www-data1.png" class="img-fluid" alt="Going through file system"></center><br>
+                <p>
+                    There is a file called <code>recipe.txt</code> and a directory <code>incidents</code> which are interesting as it is owned by www-data.
+                </p>
+                <center><img src="../Images/wu/startup/www-data2.png" class="img-fluid" alt="examining the interesting directory"></center><br>
+                <p>
+                    Whoa, <code>suspicious.pcapng</code> this a pcap file. Let's download it to attacker machine. Start the SimpleHTTPServer in the target machine.
+                <center><img src="../Images/wu/startup/simple-http-server.png" class="img-fluid" alt="SimpleHTTPServer"></center><br>
+                </p>
+                <p>
+                    Download the file using wget in the attacker machine.
+                </p>
+                <center><img src="../Images/wu/startup/wget-pcap.png" class="img-fluid" alt="downloading pcap file using wget."></center><br>
+                <p>
+                    Now open the pcap file in wireshark to examine the captured packets.
+                <center><img src="../Images/wu/startup/wireshark1.png" class="img-fluid" alt="wireshark"></center><br>
+                </p>
+                <p>
+                    Interesting, looks like someone used the php-reverse-shell like we did!!<br>
+                    Let's look at the TCP packet number 35, the stream index is 7. Let's follow this tcp stream.
+                <center><img src="../Images/wu/startup/wireshark2.png" class="img-fluid" alt="wireshark tcp stream"></center><br>
+                </p>
+                <p>
+                    Hmm, someone tried to <code>sudo -l</code> and used a password. Since they also are in lennie's home directory. Let's use this password to SSH into the machine as lennie.
+                <center><img src="../Images/wu/startup/ssh1.png" class="img-fluid" alt="SSH as lennie"></center><br>
+                </p>
+                <p>
+                    It worked, now we own the user lennie. Let's check the user directory.
+                <center><img src="../Images/wu/startup/ssh2.png" class="img-fluid" alt="lennie home directory"></center><br>
+                </p>
+                <p>
+                    There's <code>user.txt</code> and also an interesting directory called <code>scripts</code>. Let's change the directory to scripts and list the files in it.
+                <center><img src="../Images/wu/startup/ssh3.png" class="img-fluid" alt="scripts directory"></center><br>
+                </p>
+                <p>
+                    There is a bash script called <code>planner.sh</code> and is owned by <em>root</em>. Let's view this script since we have permission to read it but we can't write to the file.
+                <center><img src="../Images/wu/startup/ssh4.png" class="img-fluid" alt="planner.sh"></center><br>
+                </p>
+                <p>
+                    Hmm, there is another bash script called <code>print.sh</code> in /etc directory that will be executed if the planner.sh is executed. Let's see who owns this file.
+                <center><img src="../Images/wu/startup/ssh5.png" class="img-fluid" alt="print.sh file owner"></center><br>
+                </p>
+                <p>
+                    Oh, it's owned by lennie and it has read, write and execute bits set for the user. Let's edit this script and put a reverse shell.
+                <center><img src="../Images/wu/startup/root-revshell.png" class="img-fluid" alt="python reverse shell in print.sh"></center><br>
+                </p>
+                <p>
+                    Save the file and start a netcat listener on the attacker machine. The <code>planner.sh</code> script will be executed as by root automatically in some time. Therefore our reverse shell will be executed as root and we'll get the root shell.
+                <center><img src="../Images/wu/startup/nc-root.png" class="img-fluid" alt="netcat listener"></center><br>
+                </p>
+            </p>
+
+        </div>
+
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </body>
+</html>

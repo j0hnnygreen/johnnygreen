@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <link rel="icon" type="image/jpg" href="../Images/Rouge_Death_dp.jpg">
+  <title>Tmux</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="../css/styles.css" rel="stylesheet">
+  <link href="../css/toggleButton.css" rel="stylesheet">
+  <script src="../scripts/theme.js"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 dark:text-green-lime p-8">
+    <div class="container mx-auto py-7">
+        <div class="text-center pb-4 text-xl">
+            <p class="text-4xl" id="typewriter">Tmux Cheatsheet</p><br>
+            <a class="text-blue-600 dark:text-red-600" href="../index.html">home</a> . <a class="text-blue-600 dark:text-red-600" href="../resources.html">tools and resources</a> . <a href="tmux.html"><u>tmux</u></a>
+        </div>
+
+        <div class="flex justify-center">
+            <div class="px-1 pt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </div>
+            <div>
+                <button class="light-mode-button" onclick="toggle_dark_mode()">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="px-1 pt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content start -->
+    <div class="container mx-auto max-w-max shadow-xl rounded-md sm:rounded-xl overflow-hidden">
+        <img class="img" src="../Images/tmux.png" alt="terminal image">
+    </div>
+
+    <div class="max-w-screen-lg mx-auto m-7">
+        <div class="mb-7">
+            <h3 class="text-3xl text-purple-deep dark:text-orange-600">Installing Tmux on Ubuntu/Kali:</h3>
+            <pre class="p-2 ml-4 bg-gray-200 dark:bg-gray-800 max-w-max rounded-lg overflow-auto">$ sudo apt-get install tmux</pre>
+        </div>
+
+        <div class="mb-7">
+            <h3 class="text-3xl text-purple-deep dark:text-orange-600">Installing Tmux on Arch:</h3>
+            <pre class="p-2 ml-4 bg-gray-200 dark:bg-gray-800 max-w-max rounded-lg overflow-auto">$ sudo pacman -S tmux</pre>
+        </div>
+
+        <div class="mb-7">
+            <h3 class="text-3xl text-purple-deep dark:text-orange-600">Starting New Tmux Sessions:</h3>
+            <pre class="p-2 ml-4 bg-gray-200 dark:bg-gray-800 max-w-max rounded-lg overflow-auto mb-4">$ tmux</pre>
+            <pre class="p-2 ml-4 bg-gray-200 dark:bg-gray-800 max-w-max rounded-lg overflow-auto">$ tmux new -s [session-name]</pre>
+        </div>
+
+        <div class="mb-7">
+            <h3 class="text-3xl text-purple-deep dark:text-orange-600">Key bindings for Tmux Sessions:</h3>
+            <div class="p-4 ml-4 bg-gray-200 dark:bg-gray-800 max-w-max rounded-lg overflow-auto">
+                <table class="table-auto">
+                    <thead class="border border-green-800 dark:border-gray-400">
+                        <th class="py-4 py-4 border-r border-green-800 dark:border-gray-400">Command</th>
+                        <th class="py-4">Description</th>
+                    </thead>
+                    <tbody class="border border-green-800 dark:border-gray-400">
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>tmux ls</p></td>
+                            <td class="p-4"><p>List all tmux sessions.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b shift $</p></td>
+                            <td class="p-4"><p>Change the current tmux session name.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b d</p></td>
+                            <td class="p-4"><p>Dettach a tmux session.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>tmux a -t [session-name]</p></td>
+                            <td class="p-4"><p>Reattach a tmux session.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b s</p></td>
+                            <td class="p-4"><p>Switch between 2 or more tmux sessions.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b shift :</p></td>
+                            <td class="p-4"><p>Get into tmux prompt.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>tmux kill-session -t [session-name]</p></td>
+                            <td class="p-4"><p>Kill a tmux session.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>tmux kill-session -t [session-name-in-use] -a</p></td>
+                            <td class="p-4"><p>Kill all tmux sessions except the one currently in use.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>exit</p></td>
+                            <td class="p-4"><p>Exit currently selected tmux session.</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mb-7">
+            <h3 class="text-3xl text-purple-deep dark:text-orange-600">Key bindings for Tmux Panes:</h3>
+            <div class="p-4 ml-4 bg-gray-200 dark:bg-gray-800 max-w-max rounded-lg overflow-auto">
+                <table class="table-auto">
+                    <thead class="border border-green-800 dark:border-gray-400">
+                        <th class="py-4 py-4 border-r border-green-800 dark:border-gray-400">Command</th>
+                        <th class="py-4">Description</th>
+                    </thead>
+                    <tbody class="border border-green-800 dark:border-gray-400">
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b shift "</p></td>
+                            <td class="p-4"><p>List all tmux sessions.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b shift %</p></td>
+                            <td class="p-4"><p>Split pane horizontally.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b spacebar</p></td>
+                            <td class="p-4"><p>Cycle/toggle between tmux layouts.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b [arrow-key]</p></td>
+                            <td class="p-4"><p>Move between 2 frequently used panes.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b ;</p></td>
+                            <td class="p-4"><p>Move to different panes.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b shift }</p></td>
+                            <td class="p-4"><p>Move the currently selected pane clockwise.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b shift {</p></td>
+                            <td class="p-4"><p>Move the currently selected pane counter-clockwise.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b q</p></td>
+                            <td class="p-4"><p>Check pane number.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b z</p></td>
+                            <td class="p-4"><p>Enlarge a particular pane, if that pane is to small to view the results.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b x</p></td>
+                            <td class="p-4"><p>Kill pane.</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mb-7">
+            <h3 class="text-3xl text-purple-deep dark:text-orange-600">Tmux prompt mode:</h3>
+            <div class="p-4 ml-4 bg-gray-200 dark:bg-gray-800 max-w-max rounded-lg overflow-auto">
+                <table class="table-auto">
+                    <thead class="border border-green-800 dark:border-gray-400">
+                        <th class="py-4 py-4 border-r border-green-800 dark:border-gray-400">Command</th>
+                        <th class="py-4">Description</th>
+                    </thead>
+                    <tbody class="border border-green-800 dark:border-gray-400">
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>swap-pane -s [pane-number] -t [pane-number]</p></td>
+                            <td class="p-4"><p>List all tmux sessions.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>swap-pane -t [pane-number] -s [pane-number]</p></td>
+                            <td class="p-4"><p>Change the current tmux session name.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>join-pane -s [window-name]</p></td>
+                            <td class="p-4"><p>Dettach a tmux session.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>join-pane -t [window-name</p></td>
+                            <td class="p-4"><p>Reattach a tmux session.</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="pt-4">(note: adding -v or -h joins horizontally or vertically respectively for join-pane.)</p>
+            </div>
+        </div>
+
+        <div class="mb-7">
+            <h3 class="text-3xl text-purple-deep dark:text-orange-600">Key bindings for Tmux Windows:</h3>
+            <div class="p-4 ml-4 bg-gray-200 dark:bg-gray-800 max-w-max rounded-lg overflow-auto">
+                <table class="table-auto">
+                    <thead class="border border-green-800 dark:border-gray-400">
+                        <th class="py-4 py-4 border-r border-green-800 dark:border-gray-400">Command</th>
+                        <th class="py-4">Description</th>
+                    </thead>
+                    <tbody class="border border-green-800 dark:border-gray-400">
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b c</p></td>
+                            <td class="p-4"><p>Create a new empty tmux window.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b ,</p></td>
+                            <td class="p-4"><p>Change the currently selected window name.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b shift !</p></td>
+                            <td class="p-4"><p>Move the currently selected pane to it's own tmux window.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b p</p></td>
+                            <td class="p-4"><p>Move back to previous tmux window.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b n</p></td>
+                            <td class="p-4"><p>Move up to next tmux window.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b w</p></td>
+                            <td class="p-4"><p>View and cycle between all tmux windows.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b shift &</p></td>
+                            <td class="p-4"><p>Kill or completely close a tmux window.</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mb-7">
+            <h3 class="text-3xl text-purple-deep dark:text-orange-600">Tmux copy mode:</h3>
+            <div class="p-4 ml-4 bg-gray-200 dark:bg-gray-800 max-w-max rounded-lg overflow-auto">
+                <table class="table-auto">
+                    <thead class="border border-green-800 dark:border-gray-400">
+                        <th class="py-4 py-4 border-r border-green-800 dark:border-gray-400">Command</th>
+                        <th class="py-4">Description</th>
+                    </thead>
+                    <tbody class="border border-green-800 dark:border-gray-400">
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b [</p></td>
+                            <td class="p-4"><p>Start copy mode. <span class="text-red-700 dark:text-red-500">(note: always start copy mode before using below key-bindings.)</span></p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl r</p></td>
+                            <td class="p-4"><p>Search/grep up the wall of terminal text.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl s</p></td>
+                            <td class="p-4"><p>Search/grep down the wall of terminal text.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl spacebar</p></td>
+                            <td class="p-4"><p>Enable text highlighting to select text for copying.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>alt w</p></td>
+                            <td class="p-4"><p>Enable text highlighting to select text for copying.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b ]</p></td>
+                            <td class="p-4"><p>Paste from tmux clipboard to a terminal text editor.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>ctrl b shift #</p></td>
+                            <td class="p-4"><p>Double check what is copied to the tmux clipboard.</p></td>
+                        </tr>
+
+                        <tr class="text-left border-b border-green-800 dark:border-gray-400">
+                            <td class="border-r border-green-800 dark:border-gray-400 p-4"><p>q (or) esc</p></td>
+                            <td class="p-4"><p>Exit out of copy mode.</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!-- Main Content end -->
+
+    <script src="../scripts/typewriter.js"></script>
+
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.remove('light');
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+        window.addEventListener("storage", function () {
+            if (localStorage.theme == "dark") {
+                document.documentElement.classList.remove('light');
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+            }
+        }, false);
+    </script>
+</body>
+</html>

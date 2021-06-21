@@ -1,0 +1,86 @@
+.typewriter{
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: type 4s steps(60, end); 
+}
+
+.typewriter:nth-child(2){
+  animation: type2 4s steps(30, end);
+}
+
+.typewriter:nth-child(3){
+  animation: type3 6s steps(60, end);
+}
+  
+  
+@keyframes type{ 
+  from { width: 0; } 
+} 
+  
+@keyframes type2{
+  0%{width: 0;}
+  50%{width: 0;}
+  100%{ width: 100;} 
+} 
+  
+@keyframes type3{
+  0%{width: 0;}
+  50%{width: 0;}
+  100%{ width: 100; } 
+}
+
+/* Toggle button */
+
+.light-mode-button {
+  background:0;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 40px;
+  width: 80px;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0);
+}
+
+.light-mode-button:focus {
+  outline:none;
+}
+
+.light-mode-button span:nth-child(1) {
+  position: absolute;
+  top:0;
+  left:0;
+  width: 80px;
+  height:40px;
+  border-radius: 20px;
+  background-color: #68b868;
+  box-shadow: inset 1px 1px 3px 0 rgb(0 0 0 / 40%);
+  transition: .3s;
+}
+
+.light-mode-button span:nth-child(2) {
+  position: absolute;
+  top:5px;
+  left:5px;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 1px 1px 2px 0 rgb(0 0 0 / 40%);
+  transition: .3s;
+}
+
+html[class="light"] .light-mode-button span:nth-child(1){
+  background-color: #ced4e2;
+  color: #141516;
+}
+
+html[class="light"] .light-mode-button span:nth-child(2) {
+  left: 45px;
+  background-color: #141516;
+}
+
+.hide {
+  display: none;
+}

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <link rel="icon" type="image/jpg" href="Images/Rouge_Death_dp.jpg">
+  <title>Tools and Resources</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="css/toggleButton.css" rel="stylesheet">
+  <script src="scripts/theme.js"></script>
+  <style>
+      ol {
+          overflow-wrap: break-word;
+      }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 dark:text-green-lime p-8">
+    <div class="container mx-auto py-7">
+        <div class="text-center pb-4 text-xl">
+            <p class="text-4xl" id="typewriter">Some Useful Tools and Resources for CTF's</p><br>
+            <a class="text-blue-600 dark:text-red-600" href="index.html">home</a> . <a href="resources.html"><u>tools and resources</u></a>
+        </div>
+
+        <div class="flex justify-center">
+            <div class="px-1 pt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </div>
+            <div>
+                <button class="light-mode-button" onclick="toggle_dark_mode()">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="px-1 pt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="decoration-clone md:decoration-slice mx-auto max-w-5xl border-2 rounded-md bg-info-bg dark:bg-gray-note-bg border-info-bl dark:border-gray-note-bl text-info-text dark:text-gray-note text-center shadow-md">
+        <p class="p-4">note: Most of the tools mentioned are for linux, which may or may not work on windows!!</p>
+    </div>
+
+    <!-- Content starts here -->
+    <div class="m-7 mx-auto space-y-7 max-w-screen-xl">
+        <!-- Crypto -->
+        <dl class="sm:flex sm:flex-wrap sm:space-x-32 sm:content-start">
+            <dt class="sm:pl-12 sm:min-w-25 font-bold text-3xl text-purple-deep dark:text-orange-600">Cryptography</dt>
+            <dd class="text-xl sm:max-w-60">
+                <p class="font-bold sm:font-semibold">Online tools to crack hashes, encoding/decoding, etc..</p>
+                <ol class="list-decimal pt-4 pl-8 space-y-1 font-medium">
+                    <li>Good site to crack hashes: <a class="underline" href="https://crackstation.net" target="_blank">Crackstation</a></li>
+                    <li>Best site to do all hard work: <a class="underline" href="https://gchq.github.io/CyberChef/" target="_blank">CyberChef</a></li>
+                    <li>Good site for ciphers: <a class="underline" href="https://www.dcode.fr/tools-list#cryptography" target="_blank">dcode</a></li>
+                    <li>Best site to break vigenere ciphers(Change the language to 'English'): <a class="underline" href="https://www.guballa.de/vigenere-solver" target="_blank">Vigenere Solver</a></li>
+                    <li>Another site for substitution ciphers: <a class="underline" href="https://quipqiup.com/" target="_blank">quipqiup</a></li>
+                    <li>Brainfuck interpreter: <a class="underline" href="https://www.dcode.fr/brainfuck-language" target="_blank">Brainfuck Language</a></li>
+                    <li>Malbolge interpreter: <a class="underline" href="http://www.malbolge.doleczek.pl/" target="_blank">Malbolge</a></li>
+                </ol>
+            </dd>
+        </dl>
+
+        <!-- OSINT -->
+        <dl class="sm:flex sm:flex-wrap sm:space-x-32 sm:content-start">
+            <dt class="sm:pl-12 sm:min-w-25 font-bold text-3xl text-purple-deep dark:text-orange-600">OSINT</dt>
+            <dd class="text-xl sm:max-w-60">
+                <p class="font-bold sm:font-semibold">Online tools for osint.</p>
+                <ol class="list-decimal pt-4 pl-8 space-y-1 font-medium">
+                    <li>DNS information: <a class="underline" href="https://viewdns.info/" target="_blank">ViewDNS.info</a></li>
+                    <li>Wayback machine: <a class="underline" href="https://archive.org/" target="_blank">archive.org</a></li>
+                    <li>Whois lookup: <a class="underline" href="https://lookup.icann.org/lookup" target="_blank">ICANN Lookup</a></li>
+                    <li>Username enumeration: <a class="underline" href="https://whatsmyname.app/" target="_blank">whatsmyname.app</a></li>
+                    <li>OSINT blog: <a class="underline" href="https://osintcurio.us/" target="_blank">osintcurio.us</a></li>
+                </ol>
+            </dd>
+        </dl>
+
+        <!-- Stego -->
+        <dl class="sm:flex sm:flex-wrap sm:space-x-32 sm:content-start">
+            <dt class="sm:pl-12 sm:min-w-25 font-bold text-3xl text-purple-deep dark:text-orange-600">Steganography</dt>
+            <dd class="text-xl sm:max-w-60">
+                <p class="font-bold sm:font-semibold">Command line tools like:</p>
+                <ol class="list-decimal pt-4 pl-8 space-y-1 font-medium">
+                    <li><u>Steghide</u>, tool to hide/extract messages in/from images and audio files particularly JPEG and WAV files. (Can be installed from package managers of popular distributions)</li>
+                    <li><a class="underline" href="https://github.com/zed-0xff/zsteg" target="_blank">Zsteg</a>, tool to detect hidden data in PNG and BMP files.</li>
+                    <li><a class="underline" href="https://github.com/ReFirmLabs/binwalk" target="_blank">Binwalk</a>, is a firmware extracting tool. Mostly used to extract hidden data from images for Steganography. (Pre-installed or install from your package manager)</li>
+                    <li><u>Strings</u>, is a command line tool (Pre-installed) used to print out all the readable strings inside a file, binary, etc.. Pretty useful most of the times.</li>
+                    <li><u>Hexeditor</u>, tool to manipulate binary data in hexadecimal form (Mostly to fix file headers). There are tons of hexeditors out there, go pick your choice.</li>
+                </ol>
+            </dd>
+        </dl>
+
+        <!-- Rev Shells -->
+        <dl class="sm:flex sm:flex-wrap sm:space-x-32 sm:content-start">
+            <dt class="sm:pl-12 sm:min-w-25 font-bold text-3xl text-purple-deep dark:text-orange-600">Reverse Shells</dt>
+            <dd class="text-xl sm:max-w-60">
+                <p class="font-bold sm:font-semibold">List of usefull reverse shells.</p>
+                <ol class="list-decimal pt-4 pl-8 space-y-1 font-medium">
+                    <li><a class="underline" href="resources/reverseshells.html" target="_blank">Reverse Shell Cheatsheet</a>. Different reverse shells for popping a shell.</li>
+                    <li><a class="underline" href="https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php" target="_blank">PHP-Reverse-Shell</a>. Extremly usefull when you have an option to upload a file.</li>
+                </ol>
+            </dd>
+        </dl>
+
+        <!-- Cheatsheets -->
+        <dl class="sm:flex sm:flex-wrap sm:space-x-32 sm:content-start">
+            <dt class="sm:pl-12 sm:min-w-25 font-bold text-3xl text-purple-deep dark:text-orange-600">Cheatsheets</dt>
+            <dd class="text-xl sm:max-w-60">
+                <p class="font-bold sm:font-semibold">List of usefull cheatsheets for some tools.</p>
+                <ol class="list-decimal pt-4 pl-8 space-y-1 font-medium">
+                    <li><a class="underline" href="resources/tmux.html" target="_blank">Tmux</a>, it is a terminal multiplexer for Unix-like operating systems. It allows multiple terminal sessions to be accessed simultaneously in a single window.</li>
+                    <li><a class="underline" href="resources/regex.html" target="_blank">Regular Expressions</a> (or Regex) are patterns of text that you define to search documents and match exactly what you're looking for.</li>
+                </ol>
+            </dd>
+        </dl>
+    </div>
+
+    <script src="scripts/typewriter.js"></script>
+
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.remove('light');
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+        window.addEventListener("storage", function () {
+            if (localStorage.theme == "dark") {
+                document.documentElement.classList.remove('light');
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+            }
+        }, false);
+    </script>
+</body>
+</html>
