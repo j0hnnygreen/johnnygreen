@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <link rel="icon" type="image/jpg" href="../Images/Rouge_Death_dp.jpg">
+        <title>Tmux</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/styles.css">
+
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <h1>Tmux Cheatsheet<span class="blink">|</span></h1>
+            <p>
+                <a class="other-links" href="../index.html">home</a> . 
+                <a class="other-links" href="../resources.html">tools and resources</a> . 
+                <a href="tmux.html"><u>tmux</u></a>
+            </p>
+            <button id="toggle" onclick="svg_changer()"></button>
+        </div>
+
+        <div id="tmux-img-container">
+            <img id="tmux-img" src="../Images/tmux.png" alt="Tmux Terminal Image." />
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Installing Tmux on Ubuntu/Kali:</h2>
+                <pre class="payload">$ sudo apt-get install tmux</pre>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Installing Tmux on Arch:</h2>
+                <pre class="payload">$ sudo pacman -S tmux</pre>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Starting New Tmux Sessions:</h2>
+                <pre class="payload">$ tmux</pre>
+                <pre class="payload">$ tmux new -s [session-name]</pre>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Key bindings for Tmux Sessions:</h2>
+                <div class="payload">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>tmux ls</td>
+                                <td>List all tmux sessions.</td>
+                            </tr>
+                            <tr>
+                                <td>ctrl b shift $</td>
+                                <td>Change the current tmux session name.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b d</td>
+                                <td>Dettach a tmux session.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>tmux a -t [session-name]</td>
+                                <td>Reattach a tmux session.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b s</td>
+                                <td>Switch between 2 or more tmux sessions.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b shift :</td>
+                                <td>Get into tmux prompt.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>tmux kill-session -t [session-name]</td>
+                                <td>Kill a tmux session.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>tmux kill-session -t [session-name-in-use] -a</td>
+                                <td>Kill all tmux sessions except the one currently in use.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>exit</td>
+                                <td>Exit currently selected tmux session.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Key bindings for Tmux Panes:</h2>
+                <div class="payload">
+                    <table>
+                        <thead>
+                            <th>Command</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ctrl b shift "</td>
+                                <td>List all tmux sessions.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b shift %</td>
+                                <td>Split pane horizontally.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b spacebar</td>
+                                <td>Cycle/toggle between tmux layouts.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b [arrow-key]</td>
+                                <td>Move between 2 frequently used panes.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b ;</td>
+                                <td>Move to different panes.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b shift }</td>
+                                <td>Move the currently selected pane clockwise.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b shift {</td>
+                                <td>Move the currently selected pane counter-clockwise.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b q</td>
+                                <td>Check pane number.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b z</td>
+                                <td>Enlarge a particular pane, if that pane is to small to view the results.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b x</td>
+                                <td>Kill pane.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Tmux prompt mode:</h2>
+                <div class="payload">
+                    <table>
+                        <thead>
+                            <th>Command</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>swap-pane -s [pane-number] -t [pane-number]</td>
+                                <td>List all tmux sessions.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>swap-pane -t [pane-number] -s [pane-number]</td>
+                                <td>Change the current tmux session name.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>join-pane -s [window-name]</td>
+                                <td>Dettach a tmux session.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>join-pane -t [window-name</td>
+                                <td>Reattach a tmux session.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p><span class="note"><b>note:</b> adding -v or -h joins horizontally or vertically respectively for join-pane.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Key bindings for Tmux Windows:</h2>
+                <div class="payload">
+                    <table>
+                        <thead>
+                            <th>Command</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ctrl b c</td>
+                                <td>Create a new empty tmux window.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b ,</td>
+                                <td>Change the currently selected window name.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b shift !</td>
+                                <td>Move the currently selected pane to it's own tmux window.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b p</td>
+                                <td>Move back to previous tmux window.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b n</td>
+                                <td>Move up to next tmux window.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b w</td>
+                                <td>View and cycle between all tmux windows.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b shift &</td>
+                                <td>Kill or completely close a tmux window.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Tmux copy mode:</h2>
+                <div class="payload">
+                    <table>
+                        <thead>
+                            <th>Command</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ctrl b [</td>
+                                <td>Start copy mode. <span class="note">(<b>note:</b> always start copy mode before using below key-bindings.)</span></td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl r</td>
+                                <td>Search/grep up the wall of terminal text.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl s</td>
+                                <td>Search/grep down the wall of terminal text.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl spacebar</td>
+                                <td>Enable text highlighting to select text for copying.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>alt w</td>
+                                <td>Copy the highlighted text to tmux clipboard.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b ]</td>
+                                <td>Paste from tmux clipboard to a terminal text editor.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>ctrl b shift #</td>
+                                <td>Double check what is copied to the tmux clipboard.</td>
+                            </tr>
+    
+                            <tr>
+                                <td>q (or) esc</td>
+                                <td>Exit out of copy mode.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script src="../js/themes.js"></script>
+        
+    </body>
+
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <link rel="icon" type="image/jpg" href="../Images/Rouge_Death_dp.jpg">
+        <title>Startup</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/styles.css">
+
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <h1>Startup<span class="blink">|</span></h1>
+            <p>
+                <a class="other-links" href="../index.html">home</a> . 
+                <a class="other-links" href="../writeups.html">writeups</a> . 
+                <a href="startup.html"><u>startup</u></a> | 
+                <a class="other-links" href="https://tryhackme.com/room/startup">TryHackMe</a>
+            </p>
+            <button id="toggle" onclick="svg_changer()"></button>
+        </div>
+
+        <div id="table-of-contents">
+            <h3>Contents:</h3>
+            <a href="#enum">
+                <h4>
+                    Enumeration
+                    <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </h4>
+            </a>
+            <ul class="no-list-style-toc">
+                <li>
+                    <a href="#nmap">
+                        Nmap
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#gobuster">
+                        Gobuster
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#ftp">
+                        FTP
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+            <br />
+            <a href="#exploit">
+                <h4>
+                    Exploitation
+                    <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </h4>
+            </a>
+            <ul class="no-list-style-toc">
+                <li>
+                    <a href="#shell-pop">
+                        Gaining Shell
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="phase">
+
+            <div class="phase-sec">
+                <h3 class="phase-title" id="enum">Enumeration:</h3>
+
+                <h4 id="nmap">Nmap</h4>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/nmap.png" alt="Nmap Scan Result" />
+                </div>
+                <p>Nmap found 3 open ports:</p>
+                <ul class="no-list-style">
+                    <li>21/tcp - FTP</li>
+                    <li>22/tcp - SSH</li>
+                    <li>80/tcp - HTTP</li>
+                </ul>
+
+                <h4 id="gobuster">Gobuster</h4>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/gobuster.png" alt="Gobuster Result" />
+                </div>
+                <p>Bruteforcing directories with gobuster, finds a directory <em>&quot;files&quot;</em>.</p>
+                <p>This is a directory which contains some files and another sub-directory called <em>&quot;ftp&quot;</em>.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/http1.png" alt="File directory (HTTP)" />
+                </div>
+
+                <h4 id="ftp">FTP</h4>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/ftp1.png" alt="FTP anonymous login image." />
+                </div>
+                <p>Anonymous login is allowed in FTP. After logging in as anonymous and listing the files, there is a directory which is writeable by everyone called <em>&quot;ftp&quot;</em>. Change the directory to ftp and upload a php reverse shell.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/ftp2.png" alt="PHP reverse shell upload." />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="phase">
+            <div class="phase-sec">
+                <h3 class="phase-title" id="exploit">Exploitation:</h3>
+
+                <h4 id="shell-pop">Gaining Shell</h4>
+                <p>
+                    Start a netcat listener on the attacker machine and execute the reverse shell that was uploaded through FTP.
+                </p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/http2.png" alt="PHP reverse shell execution." />
+                </div>
+                <p>After executing, we'll get a reverse shell of the user www-data</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/nc-revshell.png" alt="Netcat listener." />
+                </div>
+                <p>Let's go through the file system and look for any interesting files or directories.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/www-data1.png" alt="Image of file system." />
+                </div>
+
+                <p>There is a file called <em>&quot;recipe.txt&quot;</em> and a directory <em>&quot;incidents&quot;</em> which are interesting as it is owned by www-data.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/www-data2.png" alt="Image of an interesting directory." />
+                </div>
+
+                <p>Whoa, <em>&quot;suspicious.pcapng&quot;</em> this a pcap file. Let's download it to attacker machine.</p><p>Start the SimpleHTTPServer in the target machine.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/simple-http-server.png" alt="Simple HTTP Server (Python)." />
+                </div>
+
+                <p>Download the file using wget in the attacker machine.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/wget-pcap.png" alt="Downloading pcap file using wget." />
+                </div>
+
+                <p>Now open the pcap file in wireshark to examine the captured packets.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/wireshark1.png" alt="Wireshark." />
+                </div>
+
+                <p>Interesting, looks like someone used the php-reverse-shell like we did!!<br />Let's look at the TCP packet number 35, the stream index is 7. Let's follow this tcp stream.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/wireshark2.png" alt="Wireshark tcp stream." />
+                </div>
+                
+                <p>Hmm, someone tried to <em>&quot;sudo -l&quot;</em> and used a password. Since they also are in lennie's home directory. Let's use this password to SSH into the machine as lennie.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/ssh1.png" alt="SSH as lennie." />
+                </div>
+
+                <p>It worked, now we own the user lennie. Let's check the user directory.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/ssh2.png" alt="Image of lennie&apos;s home directory." />
+                </div>
+
+                <p>There's <em>&quot;user.txt&quot;</em> and also an interesting directory called <em>&quot;scripts&quot;</em>. Let's change the directory to scripts and list the files in it.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/ssh3.png" alt="Image of scripts directory." />
+                </div>
+
+                <p>There is a bash script called <em>&quot;planner.sh&quot;</em> and is owned by root. Let's view this script since we have permission to read it but we can't write to the file.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/ssh4.png" alt="Contents of planner&dot;sh file." />
+                </div>
+
+                <p>Hmm, there is another bash script called <em>&quot;print.sh&quot;</em> in /etc directory that will be executed if the planner.sh is executed. Let's see who owns this file.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/ssh5.png" alt="Image of long listing of print&dot;sh file." />
+                </div>
+
+                <p>Oh, it's owned by lennie and it has read, write and execute bits set for the user. Let's edit this script and put a reverse shell.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/root-revshell.png" alt="Python reverse shell in print&dot;sh" />
+                </div>
+
+                <p>Save the file and start a netcat listener on the attacker machine. The <em>&quot;planner.sh&quot;</em> script will be executed as by root automatically in some time. Therefore our reverse shell will be executed as root and we'll get the root shell.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/startup/nc-root.png" alt="Image of netcat listener for root." />
+                </div>
+
+            </div>
+        </div>
+
+        <script src="../js/themes.js"></script>
+        
+    </body>
+
+</html>

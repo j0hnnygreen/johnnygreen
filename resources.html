@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <link rel="icon" type="image/jpg" href="Images/Rouge_Death_dp.jpg">
+        <title>Tools and Resources</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/styles.css">
+
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <h1>Some Useful Tools and Resources for CTF's<span class="blink">|</span></h1>
+            <p>
+                <a class="other-links" href="index.html">home</a> . 
+                <a href="resources.html"><u>tools and resources</u></a>
+            </p>
+            <button id="toggle" onclick="svg_changer()"></button>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Cryptography</h2>
+                <p><b>Online tools to crack hashes, encoding/decoding, etc..</b></p>
+                <ol>
+                    <li>Good site to crack hashes: <a href="https://crackstation.net/">Crackstation</a></li>
+                    <li>Best site to do all hard work: <a href="https://gchq.github.io/CyberChef/">CyberChef</a></li>
+                    <li>Good site for ciphers: <a href="https://www.dcode.fr/tools-list#cryptography">dcode</a></li>
+                    <li>Best site to break vigenere ciphers(Change the language to 'English'): <a href="https://www.guballa.de/vigenere-solver">Vigenere Solver</a></li>
+                    <li>Another site for substitution ciphers: <a href="https://quipqiup.com/">quipqiup</a></li>
+                    <li>Brainfuck interpreter: <a href="https://www.dcode.fr/brainfuck-language">Brainfuck Language</a></li>
+                    <li>Malbolge interpreter: <a href="http://www.malbolge.doleczek.pl/">Malbolge</a></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">OSINT</h2>
+                <p><b>Online tools for osint.</b></p>
+                <ol>
+                    <li>DNS information: <a href="https://viewdns.info/">ViewDNS.info</a></li>
+                    <li>Wayback machine: <a href="https://archive.org/">archive.org</a></li>
+                    <li>Whois lookup: <a href="https://lookup.icann.org/lookup">ICANN Lookup</a></li>
+                    <li>Username enumeration: <a href="https://whatsmyname.app/">whatsmyname.app</a></li>
+                    <li>OSINT blog: <a href="https://osintcurio.us/">osintcurio.us</a></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Steganography</h2>
+                <p><b>Command line tools like:</b></p>
+                <ol>
+                    <li><u>Steghide</u>, tool to hide/extract messages in/from images and audio files particularly JPEG and WAV files. (Can be installed from package managers of popular distributions)</li>
+                    <li><a href="https://github.com/zed-0xff/zsteg">Zsteg</a>, tool to detect hidden data in PNG and BMP files.</li>
+                    <li><a href="https://github.com/ReFirmLabs/binwalk">Binwalk</a>, is a firmware extracting tool. Mostly used to extract hidden data from images for Steganography. (Pre-installed or install from your package manager)</li>
+                    <li><u>Strings</u>, is a command line tool (Pre-installed) used to print out all the readable strings inside a file, binary, etc.. Pretty useful most of the times.</li>
+                    <li><u>Hexeditor</u>, tool to manipulate binary data in hexadecimal form (Mostly to fix file headers). There are tons of hexeditors out there, go pick your choice.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Reverse Shells</h2>
+                <p><b>List of usefull reverse shells.</b></p>
+                <ol>
+                    <li><a href="resources/reverseshells.html">Reverse Shell Cheatsheet</a>. Different reverse shells for popping a shell.</li>
+                    <li><a href="https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php">PHP-Reverse-Shell</a>. Extremly usefull when you have an option to upload a file.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Cheatsheets</h2>
+                <p><b>List of usefull cheatsheets for some tools.</b></p>
+                <ol>
+                    <li><a href="resources/tmux.html">Tmux</a>, it is a terminal multiplexer for Unix-like operating systems. It allows multiple terminal sessions to be accessed simultaneously in a single window.</li>
+                    <li><a href="resources/regex.html">Regular Expressions</a> (or Regex) are patterns of text that you define to search documents and match exactly what you're looking for.</li>
+                </ol>
+            </div>
+        </div>
+
+        <script src="js/themes.js"></script>
+
+    </body>
+
+</html>

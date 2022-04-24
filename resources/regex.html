@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <link rel="icon" type="image/jpg" href="../Images/Rouge_Death_dp.jpg">
+        <title>Regex</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/styles.css">
+
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <h1>Regular Expressions<span class="blink">|</span></h1>
+            <p>
+                <a class="other-links" href="../index.html">home</a> . 
+                <a class="other-links" href="../resources.html">tools and resources</a> . 
+                <a href="regex.html"><u>regex</u></a>
+            </p>
+            <button id="toggle" onclick="svg_changer()"></button>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Online regex debugger:</h2>
+                <p>Regular Expressions 101 - <a href="https://regex101.com" target="_blank">https://regex101.com/</a></p>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Charsets:</h2>
+                <div class="payload">
+                    <ul>
+                        <li><b>[abc]</b> will match a, b, and c (every occurrence of each letter)</li>
+                        <li><b>[abc]zz</b> (or) <b>[a-c]zz</b> will match azz, bzz, and czz.</li>
+                        <li><b>[a-cx-z]zz</b> will match azz, bzz, czz, xzz, yzz, and zzz.</li>
+                        <li><b>[a-zA-Z]</b> will match any single letter (lowercase or uppercase).</li>
+                    </ul>
+                </div>
+
+                <div class="payload">
+                    <h4 class="sec-title">Exclude character:</h4>
+                    <ul>
+                        <li><b>[^k]ing</b> will match ring, sing, $ing, but not king.</li>
+                        <li><b>[^a-c]at</b> fat and hat, but not bat or cat.</li>
+                        <li><b>[a-cx-z]zz</b> will match azz, bzz, czz, xzz, yzz, and zzz.</li>
+                        <li><b>[a-zA-Z]</b> will match any single letter (lowercase or uppercase).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Wildcards and optional characters:</h2>
+                <div class="payload">
+                    <h4 class="sec-title">Wildcards:</h4>
+                    <ul>
+                        <li><b>a.c</b> will match aac, abc, a0c, a!c, and so on. (use \ to escape)</li>
+                        <li><b>a.*c</b> will match everything between first occurrence of a and last occurrence of c</li>
+                    </ul>
+                </div>
+
+                <div class="payload">
+                    <h4 class="sec-title">Optional characters:</h4>
+                    <ul>
+                        <li><b>abc?</b> will match ab and abc, since c is optional.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Metacharacters and repetitions:</h2>
+                <div class="payload">
+                    <h4 class="sec-title">Metacharacters:</h4>
+                    <ul>
+                        <li><b>\d</b> matches a digit 0-9</li>
+                        <li><b>\D</b> matches a non-digit, like A or @ etc.</li>
+                        <li><b>\w</b> matches an alphanumeric character, like a or 4 etc. (<strong>NOTE:</strong> _ is included in \w not in \W)</li>
+                        <li><b>\W</b> matches a non-alphanumeric character, like ! or # (A.K.A Special Characters)</li>
+                        <li><b>\s</b> matches any whitespace characters. (spaces, tabs, and line breaks)</li>
+                        <li><b>\S</b> matches everything else except whitespace characters. (alphanumeric characters and symbols)</li>
+                    </ul>
+                </div>
+
+                <div class="payload">
+                    <h4 class="sec-title">Repetitions:</h4>
+                    <ul>
+                        <li><b>z{2}</b> will match exactly zz.</li>
+                        <li><b>{12}</b> exactly 12 times.</li>
+                        <li><b>{1,5}</b> 1 to 5 times.</li>
+                        <li><b>{2,}</b> 2 or more times.</li>
+                        <li><b>*</b> 0 or more times.</li>
+                        <li><b>+</b> 1 or more times.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Starts with or Ends with:</h2>
+                <div class="payload">
+                    <ul>
+                        <li><b>^</b> Starts with<br />ex: <b>^abc</b> search for a line that starts with abc.</li><br />
+                        <li><b>$</b> Ends with<br />ex: <b>abc$</b> search for a line that ends with abc.</li>
+                        <p><strong>NOTE:</strong> The <b>^</b> caret symbol is used to exclude a charset when enclosed in [square brackets], but when it's used without square brackets it specifies the beginning of a word or a line.</p>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="sec">
+                <h2 class="sec-title">Groups and OR Operator:</h2>
+                <div class="payload">
+                    <ul>
+                        <p>Anything enclosed between <b>()</b> are called groups. They capture the text matched by the regex inside them into a numbered group that can be reused with a numbered backreference.</p>
+                        <p>ex: <b>during the (day|night)</b> will match both of these sentences: 'during the day' and 'during the night'.</p>
+                        <p>ex: <b>(no){5}</b> will match the sentence 'nonononono'.</p>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script src="../js/themes.js"></script>
+        
+    </body>
+
+</html>

