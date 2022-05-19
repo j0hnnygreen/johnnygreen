@@ -22,6 +22,8 @@ body {
     --bg-payload: rgb(235, 255, 235);
     --bg-sec: #c5d5cb;
     --bg-btn: rgb(191, 255, 191);
+    --bg-figcaption: rgb(223, 219, 219);
+    --border-figure: rgb(54, 39, 105);
 
     font-family: Courier, 'Courier New', monospace;
     background-color: var(--bg-grey-light);
@@ -35,6 +37,8 @@ body {
     --bg-in-form: #dbdbdb;
     --bg-btn: #dbdbdb;
     --bg-payload: #272727;
+    --bg-figcaption: rgb(51, 51, 51);
+    --border-figure: #c0c0c0;
     /* --text-terminal: #00212b; */
     --text-sec-title: #5EBDAB;
     --text-terminal: #1a1a1a;
@@ -913,4 +917,22 @@ html {
 .phase-sec a {
     color: var(--text-blue-500);
     text-decoration: underline;
+}
+
+figure {
+    border: thin var(--border-figure) solid;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+figcaption {
+    background-color: var(--bg-figcaption);
+    border: thin var(--border-figure) solid;
+    font-size: small;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-style: oblique;
 }
