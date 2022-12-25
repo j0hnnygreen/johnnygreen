@@ -248,6 +248,7 @@ a {
     margin-top: 20px;
     margin-bottom: 20px;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    border-radius: 10px;
 }
 
 .dark #input-form {
