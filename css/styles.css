@@ -253,7 +253,7 @@ a {
 
 .dark #input-form {
     border-radius: 10px;
-    box-shadow: rgba(235, 235, 235, 0.25) 0px 6px 12px -2px, rgba(255, 255, 255, 0.3) 0px 3px 7px -3px;
+    box-shadow: rgba(16, 114, 153, 0.05) 0px 0px 7px 4px, rgba(16, 114, 153, 0.2) 0px 0px 7px 4px;
 }
 
 .in-form-field {
